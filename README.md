@@ -7,8 +7,9 @@ window/desktop shortcuts it doesn't ship with:
 | --- | --- |
 | [`VirtualDesktopHotkeys.ahk`](VirtualDesktopHotkeys.ahk) | `Win`+`1`..`6` jump straight to that virtual desktop |
 | [`WindowSnap.ahk`](WindowSnap.ahk) | `Win`+`←`/`→`/`↑` snap the active window to fixed fractions of the screen |
+| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A` act as Mac-style copy, paste and select-all |
 
-They're independent — run either one on its own.
+They're independent — run any one on its own.
 
 ## Requirements
 
@@ -119,6 +120,50 @@ Edit the fractions in the hotkey lines:
 ```
 
 Then right-click the tray icon and choose **Reload**.
+
+## MacKeys.ahk
+
+| Key | Sends |
+| --- | --- |
+| `Win`+`C` | `Ctrl`+`C` (copy) |
+| `Win`+`V` | `Ctrl`+`V` (paste) |
+| `Win`+`A` | `Ctrl`+`A` (select all) |
+
+The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
+common editing shortcuts back under the same thumb.
+
+**Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings, and
+`Win`+`C` opens Copilot.
+
+### How it works
+
+The awkward part is that `Win`+`C` has to send `Ctrl`+`C` *while the Win key is
+physically held down*, which means releasing Win mid-shortcut. Windows opens the
+Start menu whenever Win is pressed and released with nothing in between, so the
+obvious `#c::Send "^c"` can leave the Start menu popping open on every copy.
+
+The fix is to tap `vkE8` — an unassigned virtual key that does nothing — while
+Win is still down. Windows then counts the hold as "Win + something" and
+suppresses the menu. Only then does the script release Win and send the real
+shortcut.
+
+It deliberately never presses Win back down. AutoHotkey ignores its own injected
+input, so it still considers the key held, and holding Win to repeat the
+shortcut keeps working.
+
+### Adding more
+
+One line per shortcut, e.g. cut and undo:
+
+```ahk
+#x::MacKey("x")
+#z::MacKey("z")
+```
+
+If you want Mac-style muscle memory generally rather than a handful of keys, the
+usual approach is remapping the whole Win key to Ctrl and vice versa, which gets
+`Win`+`T`, `Win`+`W`, `Win`+`L` and the rest for free. That's a much larger
+behavioural change than this script makes.
 
 ## Caveats
 
