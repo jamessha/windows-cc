@@ -7,7 +7,7 @@ window/desktop shortcuts it doesn't ship with:
 | --- | --- |
 | [`VirtualDesktopHotkeys.ahk`](VirtualDesktopHotkeys.ahk) | `Win`+`1`..`6` jump straight to that virtual desktop |
 | [`WindowSnap.ahk`](WindowSnap.ahk) | `Win`+`←`/`→`/`↑` snap the active window to fixed fractions of the screen |
-| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A`/`R` act as Mac-style copy, paste, select-all and refresh |
+| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A`/`R`/`T` act as Mac-style copy, paste, select-all, refresh and new tab |
 
 They're independent — run any one on its own.
 
@@ -129,13 +129,19 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`V` | `Ctrl`+`V` (paste) |
 | `Win`+`A` | `Ctrl`+`A` (select all) |
 | `Win`+`R` | `Ctrl`+`R` (refresh) |
+| `Win`+`T` | `Ctrl`+`T` (new tab) |
+| `Win`+`Shift`+`T` | `Ctrl`+`Shift`+`T` (reopen closed tab) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
 
+`Win`+`Shift`+`T` needs no special handling. `MacKey` sends with `{Blind}`,
+which leaves a physically-held Shift untouched, so laying Ctrl on top of it
+comes out as `Ctrl`+`Shift`+`T` on its own.
+
 **Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings,
-`Win`+`C` opens Copilot, and `Win`+`R` is the Run dialog (still reachable from
-`Win`+`X` → Run).
+`Win`+`C` opens Copilot, `Win`+`R` is the Run dialog (still reachable from
+`Win`+`X` → Run), and `Win`+`T` cycles taskbar buttons.
 
 ### What can't be rebound: Win+L
 

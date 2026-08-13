@@ -6,12 +6,18 @@
 ; and select-all sit under the same thumb position as they do on macOS.
 ;
 ;   Win+C -> Ctrl+C   Win+V -> Ctrl+V   Win+A -> Ctrl+A   Win+R -> Ctrl+R
+;   Win+T -> Ctrl+T   Win+Shift+T -> Ctrl+Shift+T
 ; ---------------------------------------------------------------------------
 
 #c::MacKey("c")
 #v::MacKey("v")
 #a::MacKey("a")
 #r::MacKey("r")   ; refresh; replaces the Run dialog
+#t::MacKey("t")   ; new tab; replaces taskbar cycling
+
+; No separate handling needed for Shift: MacKey sends {Blind}, which leaves the
+; Shift you're already holding untouched, so this comes out as Ctrl+Shift+T.
+#+t::MacKey("t")
 
 MacKey(key) {
     ; Windows opens the Start menu when Win is pressed and released with
