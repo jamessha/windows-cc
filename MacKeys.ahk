@@ -5,12 +5,13 @@
 ; Mac-style editing shortcuts: the Win key stands in for Cmd, so copy, paste
 ; and select-all sit under the same thumb position as they do on macOS.
 ;
-;   Win+C -> Ctrl+C     Win+V -> Ctrl+V     Win+A -> Ctrl+A
+;   Win+C -> Ctrl+C   Win+V -> Ctrl+V   Win+A -> Ctrl+A   Win+R -> Ctrl+R
 ; ---------------------------------------------------------------------------
 
 #c::MacKey("c")
 #v::MacKey("v")
 #a::MacKey("a")
+#r::MacKey("r")   ; refresh; replaces the Run dialog
 
 MacKey(key) {
     ; Windows opens the Start menu when Win is pressed and released with

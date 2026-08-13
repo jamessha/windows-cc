@@ -7,7 +7,7 @@ window/desktop shortcuts it doesn't ship with:
 | --- | --- |
 | [`VirtualDesktopHotkeys.ahk`](VirtualDesktopHotkeys.ahk) | `Win`+`1`..`6` jump straight to that virtual desktop |
 | [`WindowSnap.ahk`](WindowSnap.ahk) | `Win`+`←`/`→`/`↑` snap the active window to fixed fractions of the screen |
-| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A` act as Mac-style copy, paste and select-all |
+| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A`/`R` act as Mac-style copy, paste, select-all and refresh |
 
 They're independent — run any one on its own.
 
@@ -128,12 +128,23 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`C` | `Ctrl`+`C` (copy) |
 | `Win`+`V` | `Ctrl`+`V` (paste) |
 | `Win`+`A` | `Ctrl`+`A` (select all) |
+| `Win`+`R` | `Ctrl`+`R` (refresh) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
 
-**Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings, and
-`Win`+`C` opens Copilot.
+**Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings,
+`Win`+`C` opens Copilot, and `Win`+`R` is the Run dialog (still reachable from
+`Win`+`X` → Run).
+
+### What can't be rebound: Win+L
+
+`Win`+`L` is handled below the low-level keyboard hook, so no AutoHotkey hotkey
+can intercept it. The only way to free it is the registry policy
+`DisableLockWorkstation=1`, and that disables *every* route to locking — the
+`LockWorkStation()` API, the Start menu entry and the Ctrl+Alt+Del entry
+included — so you cannot free `Win`+`L` and still bind a replacement lock
+shortcut. Every other `Win`+*key* combination here rebinds normally.
 
 ### How it works
 
