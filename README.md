@@ -133,6 +133,7 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`Shift`+`T` | `Ctrl`+`Shift`+`T` (reopen closed tab) |
 | `Win`+`W` | `Ctrl`+`W` (close tab/window) |
 | `Win`+`Shift`+`N` | `Ctrl`+`Shift`+`N` (incognito window in Chrome) |
+| `Win`+click | `Ctrl`+click (open link in a new tab) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
@@ -140,6 +141,9 @@ common editing shortcuts back under the same thumb.
 The `Shift` variants need no special handling. `MacKey` sends with `{Blind}`,
 which leaves a physically-held Shift untouched, so laying Ctrl on top of it
 comes out as `Ctrl`+`Shift`+*key* on its own.
+
+`Win`+click fires on button-down and emits a complete click, so holding Win and
+dragging produces a plain click rather than a drag.
 
 Every binding is global rather than scoped to a browser, so it forwards to
 whatever app has focus — `Win`+`Shift`+`N` in File Explorer creates a new
