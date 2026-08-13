@@ -7,7 +7,7 @@ window/desktop shortcuts it doesn't ship with:
 | --- | --- |
 | [`VirtualDesktopHotkeys.ahk`](VirtualDesktopHotkeys.ahk) | `Win`+`1`..`6` jump straight to that virtual desktop |
 | [`WindowSnap.ahk`](WindowSnap.ahk) | `Win`+`←`/`→`/`↑` snap the active window to fixed fractions of the screen |
-| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A`/`R`/`T` act as Mac-style copy, paste, select-all, refresh and new tab |
+| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A`/`R`/`T`/`W` act as Mac-style copy, paste, select-all, refresh, new tab and close |
 
 They're independent — run any one on its own.
 
@@ -131,6 +131,7 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`R` | `Ctrl`+`R` (refresh) |
 | `Win`+`T` | `Ctrl`+`T` (new tab) |
 | `Win`+`Shift`+`T` | `Ctrl`+`Shift`+`T` (reopen closed tab) |
+| `Win`+`W` | `Ctrl`+`W` (close tab/window) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
@@ -141,7 +142,8 @@ comes out as `Ctrl`+`Shift`+`T` on its own.
 
 **Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings,
 `Win`+`C` opens Copilot, `Win`+`R` is the Run dialog (still reachable from
-`Win`+`X` → Run), and `Win`+`T` cycles taskbar buttons.
+`Win`+`X` → Run), `Win`+`T` cycles taskbar buttons, and `Win`+`W` opens the
+Widgets board.
 
 ### What can't be rebound: Win+L
 
