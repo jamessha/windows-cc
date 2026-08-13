@@ -7,7 +7,7 @@ window/desktop shortcuts it doesn't ship with:
 | --- | --- |
 | [`VirtualDesktopHotkeys.ahk`](VirtualDesktopHotkeys.ahk) | `Win`+`1`..`6` jump straight to that virtual desktop |
 | [`WindowSnap.ahk`](WindowSnap.ahk) | `Win`+`←`/`→`/`↑` snap the active window to fixed fractions of the screen |
-| [`MacKeys.ahk`](MacKeys.ahk) | `Win`+`C`/`V`/`A`/`R`/`T`/`W` act as Mac-style copy, paste, select-all, refresh, new tab and close |
+| [`MacKeys.ahk`](MacKeys.ahk) | Mac-style editing and tab shortcuts — `Win` stands in for `Cmd` on `C`/`V`/`A`/`R`/`T`/`W` and their `Shift` variants |
 
 They're independent — run any one on its own.
 
@@ -132,13 +132,25 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`T` | `Ctrl`+`T` (new tab) |
 | `Win`+`Shift`+`T` | `Ctrl`+`Shift`+`T` (reopen closed tab) |
 | `Win`+`W` | `Ctrl`+`W` (close tab/window) |
+| `Win`+`Shift`+`N` | `Ctrl`+`Shift`+`N` (incognito window in Chrome) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
 
-`Win`+`Shift`+`T` needs no special handling. `MacKey` sends with `{Blind}`,
+The `Shift` variants need no special handling. `MacKey` sends with `{Blind}`,
 which leaves a physically-held Shift untouched, so laying Ctrl on top of it
-comes out as `Ctrl`+`Shift`+`T` on its own.
+comes out as `Ctrl`+`Shift`+*key* on its own.
+
+Every binding is global rather than scoped to a browser, so it forwards to
+whatever app has focus — `Win`+`Shift`+`N` in File Explorer creates a new
+folder, that being Explorer's own `Ctrl`+`Shift`+`N`. To limit one to Chrome,
+wrap it in a context block:
+
+```ahk
+#HotIf WinActive("ahk_exe chrome.exe")
+#+n::MacKey("n")
+#HotIf
+```
 
 **Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings,
 `Win`+`C` opens Copilot, `Win`+`R` is the Run dialog (still reachable from

@@ -7,6 +7,7 @@
 ;
 ;   Win+C -> Ctrl+C   Win+V -> Ctrl+V   Win+A -> Ctrl+A   Win+R -> Ctrl+R
 ;   Win+T -> Ctrl+T   Win+Shift+T -> Ctrl+Shift+T   Win+W -> Ctrl+W
+;   Win+Shift+N -> Ctrl+Shift+N (incognito window in Chrome)
 ; ---------------------------------------------------------------------------
 
 #c::MacKey("c")
@@ -19,6 +20,7 @@
 ; No separate handling needed for Shift: MacKey sends {Blind}, which leaves the
 ; Shift you're already holding untouched, so this comes out as Ctrl+Shift+T.
 #+t::MacKey("t")
+#+n::MacKey("n")   ; incognito window in Chrome
 
 MacKey(key) {
     ; Windows opens the Start menu when Win is pressed and released with
