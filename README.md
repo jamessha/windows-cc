@@ -149,6 +149,7 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`Shift`+`N` | `Ctrl`+`Shift`+`N` (incognito window in Chrome) |
 | `Win`+click | `Ctrl`+click (open link in a new tab) |
 | `Win`+`E` | `End` (end of line) |
+| `Win`+`F` | `Ctrl`+`F` (find) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
@@ -179,7 +180,8 @@ wrap it in a context block:
 **Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings,
 `Win`+`C` opens Copilot, `Win`+`R` is the Run dialog (still reachable from
 `Win`+`X` → Run), `Win`+`T` cycles taskbar buttons, `Win`+`W` opens the Widgets
-board, and `Win`+`E` opens File Explorer (still on `Win`+`X` → File Explorer).
+board, `Win`+`E` opens File Explorer (still on `Win`+`X` → File Explorer), and
+`Win`+`F` opens the Feedback Hub.
 
 ### What can't be rebound: Win+L
 

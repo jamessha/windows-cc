@@ -9,7 +9,7 @@
 ;   Win+T -> Ctrl+T   Win+Shift+T -> Ctrl+Shift+T   Win+W -> Ctrl+W
 ;   Win+Shift+N -> Ctrl+Shift+N (incognito window in Chrome)
 ;   Win+Click -> Ctrl+Click (open link in a new tab)
-;   Win+E -> End (end of line)
+;   Win+E -> End (end of line)   Win+F -> Ctrl+F (find)
 ; ---------------------------------------------------------------------------
 
 #c::MacKey("c")
@@ -18,6 +18,7 @@
 #r::MacKey("r")   ; refresh; replaces the Run dialog
 #t::MacKey("t")   ; new tab; replaces taskbar cycling
 #w::MacKey("w")   ; close tab/window; replaces the Widgets board
+#f::MacKey("f")   ; find; replaces the Feedback Hub
 
 ; No separate handling needed for Shift: MacKey sends {Blind}, which leaves the
 ; Shift you're already holding untouched, so this comes out as Ctrl+Shift+T.
