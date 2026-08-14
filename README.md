@@ -148,6 +148,7 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`W` | `Ctrl`+`W` (close tab/window) |
 | `Win`+`Shift`+`N` | `Ctrl`+`Shift`+`N` (incognito window in Chrome) |
 | `Win`+click | `Ctrl`+click (open link in a new tab) |
+| `Win`+`E` | `End` (end of line) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
@@ -158,6 +159,11 @@ comes out as `Ctrl`+`Shift`+*key* on its own.
 
 `Win`+click fires on button-down and emits a complete click, so holding Win and
 dragging produces a plain click rather than a drag.
+
+`Win`+`E` is the one binding that isn't `Win` → `Ctrl`. End-of-line on Windows
+is the `End` key; `Ctrl`+`E` focuses the search box in Explorer and some
+browsers, which isn't what you want. It goes through `BareKey` rather than
+`MacKey` for that reason.
 
 Every binding is global rather than scoped to a browser, so it forwards to
 whatever app has focus — `Win`+`Shift`+`N` in File Explorer creates a new
@@ -172,8 +178,8 @@ wrap it in a context block:
 
 **Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings,
 `Win`+`C` opens Copilot, `Win`+`R` is the Run dialog (still reachable from
-`Win`+`X` → Run), `Win`+`T` cycles taskbar buttons, and `Win`+`W` opens the
-Widgets board.
+`Win`+`X` → Run), `Win`+`T` cycles taskbar buttons, `Win`+`W` opens the Widgets
+board, and `Win`+`E` opens File Explorer (still on `Win`+`X` → File Explorer).
 
 ### What can't be rebound: Win+L
 

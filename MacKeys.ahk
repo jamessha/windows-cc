@@ -9,6 +9,7 @@
 ;   Win+T -> Ctrl+T   Win+Shift+T -> Ctrl+Shift+T   Win+W -> Ctrl+W
 ;   Win+Shift+N -> Ctrl+Shift+N (incognito window in Chrome)
 ;   Win+Click -> Ctrl+Click (open link in a new tab)
+;   Win+E -> End (end of line)
 ; ---------------------------------------------------------------------------
 
 #c::MacKey("c")
@@ -26,9 +27,19 @@
 ; Fires on button-down, so a Win+drag becomes a plain click rather than a drag.
 #LButton::MacClick()
 
+; The odd one out: end-of-line on Windows is the End key, not Ctrl+E (which
+; focuses the search box in Explorer and some browsers). So this sends the key
+; bare instead of going through MacKey.
+#e::BareKey("End")
+
 MacKey(key) {
     DropWin()
     Send "{Blind}{LCtrl down}{" key "}{LCtrl up}"
+}
+
+BareKey(key) {
+    DropWin()
+    Send "{Blind}{" key "}"
 }
 
 MacClick() {
