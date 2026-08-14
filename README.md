@@ -148,8 +148,9 @@ Then right-click the tray icon and choose **Reload**.
 | `Win`+`W` | `Ctrl`+`W` (close tab/window) |
 | `Win`+`Shift`+`N` | `Ctrl`+`Shift`+`N` (incognito window in Chrome) |
 | `Win`+click | `Ctrl`+click (open link in a new tab) |
-| `Win`+`E` | `End` (end of line) |
 | `Win`+`F` | `Ctrl`+`F` (find) |
+| `Ctrl`+`A` | `Home` (start of line) |
+| `Ctrl`+`E` | `End` (end of line) |
 
 The Win key sits roughly where Cmd does on a Mac keyboard, so this puts the
 common editing shortcuts back under the same thumb.
@@ -161,10 +162,27 @@ comes out as `Ctrl`+`Shift`+*key* on its own.
 `Win`+click fires on button-down and emits a complete click, so holding Win and
 dragging produces a plain click rather than a drag.
 
-`Win`+`E` is the one binding that isn't `Win` → `Ctrl`. End-of-line on Windows
-is the `End` key; `Ctrl`+`E` focuses the search box in Explorer and some
-browsers, which isn't what you want. It goes through `BareKey` rather than
-`MacKey` for that reason.
+### Line movement, and why Ctrl+A is no longer select-all
+
+`Ctrl`+`A` / `Ctrl`+`E` mirror macOS, where those move within the line and
+`Cmd`+`A` selects all. Here select-all moves to `Win`+`A` to make room.
+
+**This is the most disruptive binding in the repo.** `Ctrl`+`A` is select-all
+in essentially every Windows app, and it is now start-of-line everywhere. If
+you use `Ctrl`+`A` as a tmux or screen prefix, that breaks too.
+
+They send `Home`/`End` bare rather than mapping onto a `Ctrl` shortcut, and
+Ctrl must be released first — held down, they arrive as `Ctrl`+`Home` /
+`Ctrl`+`End`, which jump to the start/end of the whole document rather than the
+line.
+
+They also sit behind a `#HotIf !Emitting` guard. `Win`+`A` works by sending a
+synthetic `Ctrl`+`A`, and without the guard `^a::` catches that and moves the
+caret Home instead of selecting all — so enabling these would silently break
+`Win`+`A`. AutoHotkey normally stops a script's own generated input from firing
+its own hotkeys; that does not hold here, so `MacKey` raises a flag while it
+sends. Measured with `EM_GETSEL` on the text `abc`: the selection came back
+`0,0` with `^a::` live and `0,3` with it disabled.
 
 Every binding is global rather than scoped to a browser, so it forwards to
 whatever app has focus — `Win`+`Shift`+`N` in File Explorer creates a new
@@ -180,8 +198,8 @@ wrap it in a context block:
 **Overrides:** `Win`+`V` is clipboard history, `Win`+`A` is Quick Settings,
 `Win`+`C` opens Copilot, `Win`+`R` is the Run dialog (still reachable from
 `Win`+`X` → Run), `Win`+`T` cycles taskbar buttons, `Win`+`W` opens the Widgets
-board, `Win`+`E` opens File Explorer (still on `Win`+`X` → File Explorer), and
-`Win`+`F` opens the Feedback Hub.
+board, and `Win`+`F` opens the Feedback Hub. `Ctrl`+`A` is select-all, which
+moves to `Win`+`A` — see below.
 
 ### What can't be rebound: Win+L
 

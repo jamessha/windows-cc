@@ -9,7 +9,12 @@
 ;   Win+T -> Ctrl+T   Win+Shift+T -> Ctrl+Shift+T   Win+W -> Ctrl+W
 ;   Win+Shift+N -> Ctrl+Shift+N (incognito window in Chrome)
 ;   Win+Click -> Ctrl+Click (open link in a new tab)
-;   Win+E -> End (end of line)   Win+F -> Ctrl+F (find)
+;   Win+F -> Ctrl+F (find)
+;
+; Plus emacs-style line movement, as on macOS where Ctrl+A/Ctrl+E move within
+; the line and Cmd+A selects all:
+;
+;   Ctrl+A -> Home   Ctrl+E -> End
 ; ---------------------------------------------------------------------------
 
 #c::MacKey("c")
@@ -28,19 +33,37 @@
 ; Fires on button-down, so a Win+drag becomes a plain click rather than a drag.
 #LButton::MacClick()
 
-; The odd one out: end-of-line on Windows is the End key, not Ctrl+E (which
-; focuses the search box in Explorer and some browsers). So this sends the key
-; bare instead of going through MacKey.
-#e::BareKey("End")
+; True while MacKey is emitting its Ctrl+<key>.
+;
+; Win+A works by sending a synthetic Ctrl+A, and ^a:: below catches it -- so
+; Win+A moved the caret Home instead of selecting all. AutoHotkey normally
+; stops a script's own generated input from firing its hotkeys, but it does
+; not hold here, so the guard is explicit. Measured with EM_GETSEL on "abc":
+; selection came back 0,0 with ^a:: live, and 0,3 with it disabled.
+Emitting := false
+
+; Emacs-style line movement. Select-all still works, on Win+A above.
+#HotIf !Emitting
+^a::LineKey("Home")
+^e::LineKey("End")
+#HotIf
 
 MacKey(key) {
-    DropWin()
-    Send "{Blind}{LCtrl down}{" key "}{LCtrl up}"
+    global Emitting
+    Emitting := true
+    try {
+        DropWin()
+        Send "{Blind}{LCtrl down}{" key "}{LCtrl up}"
+    }
+    finally
+        Emitting := false      ; never leave the line keys wedged off
 }
 
-BareKey(key) {
-    DropWin()
-    Send "{Blind}{" key "}"
+; Ctrl has to come up first: held down, these arrive as Ctrl+Home / Ctrl+End,
+; which jump to the start/end of the whole document rather than the line.
+; Both sides are released since either Ctrl key can be the one held.
+LineKey(key) {
+    Send "{Blind}{LCtrl up}{RCtrl up}{" key "}"
 }
 
 MacClick() {
