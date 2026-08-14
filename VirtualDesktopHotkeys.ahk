@@ -80,7 +80,3 @@ GetDesktopInfo() {
 
     return { count: StrLen(ids) // 32, current: index }
 }
-
-A_IconTip := "Virtual Desktop Hotkeys (Win+1..6)"
-tray := A_TrayMenu
-tray.Insert("1&", "Reload", (*) => Reload())

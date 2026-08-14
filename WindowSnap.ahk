@@ -84,6 +84,3 @@ IsShellWindow(hwnd) {
     try return shell.Has(WinGetClass(hwnd))
     return true
 }
-
-A_IconTip := "Window Snap (Win+Left/Right/Up)"
-A_TrayMenu.Insert("1&", "Reload", (*) => Reload())

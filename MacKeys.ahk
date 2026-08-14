@@ -50,6 +50,3 @@ DropWin() {
     Send "{Blind}{vkE8}"
     Send "{Blind}{LWin up}"
 }
-
-A_IconTip := "Mac-style Edit Keys (Win+C/V/A)"
-A_TrayMenu.Insert("1&", "Reload", (*) => Reload())

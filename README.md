@@ -1,7 +1,7 @@
 # windows-cc
 
-Two small AutoHotkey v2 scripts that give Windows 11 a couple of macOS-style
-window/desktop shortcuts it doesn't ship with:
+Three small AutoHotkey v2 scripts that give Windows 11 the macOS-style window,
+desktop and editing shortcuts it doesn't ship with:
 
 | Script | What it does |
 | --- | --- |
@@ -9,7 +9,10 @@ window/desktop shortcuts it doesn't ship with:
 | [`WindowSnap.ahk`](WindowSnap.ahk) | `Win`+`←`/`→`/`↑` snap the active window to fixed fractions of the screen |
 | [`MacKeys.ahk`](MacKeys.ahk) | Mac-style editing and tab shortcuts — `Win` stands in for `Cmd` on `C`/`V`/`A`/`R`/`T`/`W` and their `Shift` variants |
 
-They're independent — run any one on its own.
+[`WindowsCC.ahk`](WindowsCC.ahk) is the entry point: it `#Include`s all three so
+they share one process, one tray icon and one startup entry. Each file is still
+a complete script, so you can run just one on its own — it simply won't carry
+the custom tray tip the launcher sets.
 
 ## Requirements
 
@@ -18,12 +21,23 @@ They're independent — run any one on its own.
 
 ## Install
 
-Double-click either `.ahk` file to run it. To start them at login, drop a
-shortcut to each into the startup folder — paste `shell:startup` into the Run
-dialog (`Win`+`R`) to open it, then point the shortcut at:
+Double-click `WindowsCC.ahk` to run everything. To start it at login, put a
+shortcut in the startup folder — open the Run dialog from `Win`+`X` → Run
+(`Win`+`R` is remapped once these are loaded), paste `shell:startup`, and point
+the shortcut at:
 
 ```
-"C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe" "<path>\WindowSnap.ahk"
+"C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe" "<path>\WindowsCC.ahk"
+```
+
+Because the shortcut references the scripts by path, edits take effect on next
+login without touching it. After editing, right-click the tray icon → **Reload**.
+
+A syntax error in any one file stops the whole launcher loading, so it's worth
+checking a file before reloading:
+
+```
+"C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe" /validate "<path>\WindowsCC.ahk"
 ```
 
 ## VirtualDesktopHotkeys.ahk
@@ -212,5 +226,5 @@ behavioural change than this script makes.
 
 ## Uninstall
 
-Right-click the tray icon → **Exit**, and delete the shortcut from
+Right-click the tray icon → **Exit**, and delete `WindowsCC.lnk` from
 `shell:startup`.
