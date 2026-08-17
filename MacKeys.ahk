@@ -55,8 +55,10 @@ MacKey(key) {
         DropWin()
         Send "{Blind}{LCtrl down}{" key "}{LCtrl up}"
     }
-    finally
+    finally {
         Emitting := false      ; never leave the line keys wedged off
+        RestoreWin()
+    }
 }
 
 ; Ctrl has to come up first: held down, these arrive as Ctrl+Home / Ctrl+End,
@@ -71,6 +73,7 @@ MacClick() {
     Send "{Blind}{LCtrl down}"
     Click                       ; no coords: clicks wherever the cursor already is
     Send "{Blind}{LCtrl up}"
+    RestoreWin()
 }
 
 ; Let go of the Win key the user is physically holding, without the Start menu
@@ -78,10 +81,28 @@ MacClick() {
 ; in between, and sending Ctrl+<key> requires releasing Win. vkE8 is an
 ; unassigned virtual key: tapping it while Win is still down makes Windows
 ; count the hold as "Win + something" and suppress the menu.
-;
-; We never press Win back down. AutoHotkey ignores its own injected input, so
-; it still sees the key as held and holding Win to repeat the shortcut works.
 DropWin() {
     Send "{Blind}{vkE8}"
-    Send "{Blind}{LWin up}"
+    Send "{Blind}{LWin up}{RWin up}"
+}
+
+; Put the Win key back down afterwards.
+;
+; Releasing it above also clears the state hotkeys are matched against, so a
+; second shortcut in the same Win hold stops matching and leaks a raw character
+; into whatever has focus -- hold Win and tap F twice and the second types "f".
+; Measured before this: logical went 1 -> 0 across the send and stayed 0.
+;
+; Only restore a side still PHYSICALLY held. Pressing Win back down after the
+; user let go would leave every later keystroke a Win+ combination. The
+; trailing mask key keeps the Start menu shut on the eventual release.
+;
+; Physical state is also why this cannot be tested with synthetic input:
+; AutoHotkey excludes injected keys from physical state, so a scripted Win
+; hold always reads as up. Only a real keypress exercises this path.
+RestoreWin() {
+    if GetKeyState("LWin", "P")
+        Send "{Blind}{LWin down}{vkE8}"
+    else if GetKeyState("RWin", "P")
+        Send "{Blind}{RWin down}{vkE8}"
 }
